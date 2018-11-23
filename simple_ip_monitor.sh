@@ -8,7 +8,7 @@ timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 localip=$1
 
 if [[ $1 = 0 ]]; then # checks if localip value is empty. Uses = as localip could be a string
-  echo "Error: Please enter valid IP address. \n"
+  echo "Error: Please enter a value. \n"
   exit 1;
 else
   printf "\nPinging $1 \n\n"
