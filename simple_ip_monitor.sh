@@ -1,27 +1,29 @@
 #! /bin/bash
-# Author: lchabolla@gmail.com
+# Author: Luis Chabolla, Jr.
+# lchabolla@gmail.com
+# Designed for MacOS
 
 
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-localip="$1"
+localip=$1
 
-if [[ "$1" = 0 ]]; then
-  echo "Error: Please enter valid IP address."
+if [[ $1 = 0 ]]; then # checks if localip value is empty. Uses = as localip could be a string
+  echo "Error: Please enter valid IP address. \n"
   exit 1;
 else
-  echo "Pinging $1"
+  printf "\nPinging $1 \n\n"
 fi
 
-/sbin/ping -c 1 $1
+/sbin/ping -c 1 -q $1 # invokes ping with the count option of 1 and quieter output
 
-if [ $? -eq 0 ]
+if [ $? -eq 0 ] # checks ping exit status, prints if host is up or down and appends to appropriate log
 then
-echo "Host is up. Appending to log."
+printf "\nHost is up. Appending to log. \n\n"
 echo "$timestamp: $1 is up." >> uptime.txt
 exit 0;
 elif [ $? -ne 0 ]
 then
-  echo "Host is down. Appending to log."
+  printf "\nHost is down. Appending to log. \n\n"
   echo "$timestamp: $1 down." >> downtime.txt
   exit 1;
 fi
